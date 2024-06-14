@@ -37,6 +37,10 @@ export const descriptionValidation: RegisterOptions = {
     value: 2048,
     message: "Description must be between 128 and 2048 characters",
   },
+  validate: (value) =>
+    value.trim().length === 0 ||
+    value.trim().length >= 128 ||
+    "Description must be between 128 and 2048 characters",
 };
 
 export const typeValidation: RegisterOptions = {
