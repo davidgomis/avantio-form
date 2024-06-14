@@ -103,7 +103,7 @@ export const AccommodationForm: React.FC = () => {
           />
           {errors.images && <ErrorForm textError={errors.images.message} />}
         </div>
-        <div className="space-y-4">
+        <div className="space-y-4 flex flex-row gap-2">
           {imagePreviews.map(
             (src: string | undefined, index: Key | null | undefined) => (
               <img
