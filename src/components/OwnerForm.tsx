@@ -27,7 +27,7 @@ export const OwnerForm = () => {
         style={{ height: "715px" }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div>
+        <div className="flex flex-col justify-between gap-4">
           <div>
             <label className="block text-gray-700 text-left">Name</label>
             <input
