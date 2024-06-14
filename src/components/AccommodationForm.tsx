@@ -29,14 +29,18 @@ export const AccommodationForm: React.FC = () => {
   };
 
   return (
-    <>
-      <h2>Accommodation</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
-          <label className="form-label">Name</label>
+    <div className="container border-solid border-2 border-black p-10 rounded-xl">
+      <h2 className="text-2xl text-left mb-5 font-bold">Accommodation</h2>
+      <form
+        className="flex flex-col justify-between gap-4 w-96"
+        style={{ minHeight: "715px" }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>
+          <label className="block text-gray-700 text-left">Name</label>
           <input
             type="text"
-            className="form-control"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             {...register("name", {
               required: "Name is required",
               minLength: {
@@ -53,13 +57,17 @@ export const AccommodationForm: React.FC = () => {
               },
             })}
           />
-          {errors.name && <p className="text-danger">{errors.name.message}</p>}
+          {errors.name && (
+            <p className="text-red-500 text-xs mt-1 text-left">
+              {errors.name.message}
+            </p>
+          )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Address</label>
+        <div>
+          <label className="block text-gray-700 text-left">Address</label>
           <input
             type="text"
-            className="form-control"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             {...register("address", {
               required: "Address is required",
               minLength: {
@@ -73,14 +81,16 @@ export const AccommodationForm: React.FC = () => {
             })}
           />
           {errors.address && (
-            <p className="text-danger">{errors.address.message}</p>
+            <p className="text-red-500 text-xs mt-1 text-left">
+              {errors.address.message}
+            </p>
           )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Description</label>
+        <div>
+          <label className="block text-gray-700 text-left">Description</label>
           <textarea
-            className="form-control"
-            cols={30}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            cols={10}
             rows={10}
             {...register("description", {
               minLength: {
@@ -94,13 +104,15 @@ export const AccommodationForm: React.FC = () => {
             })}
           ></textarea>
           {errors.description && (
-            <p className="text-danger">{errors.description.message}</p>
+            <p className="text-red-500 text-xs mt-1 text-left">
+              {errors.description.message}
+            </p>
           )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Type</label>
+        <div>
+          <label className="block text-gray-700 text-left">Type</label>
           <select
-            className="form-control"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             {...register("type", {
               required: "Property type is required",
               validate: (value) =>
@@ -112,13 +124,17 @@ export const AccommodationForm: React.FC = () => {
             <option value="villa">Villa</option>
             <option value="house">House</option>
           </select>
-          {errors.type && <p className="text-danger">{errors.type.message}</p>}
+          {errors.type && (
+            <p className="text-red-500 text-xs mt-1 text-left">
+              {errors.type.message}
+            </p>
+          )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Images</label>
+        <div>
+          <label className="block text-gray-700 text-left">Photos</label>
           <input
             type="file"
-            className="form-control"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             accept="image/*"
             multiple
             {...register("images", {
@@ -135,10 +151,12 @@ export const AccommodationForm: React.FC = () => {
             })}
           />
           {errors.images && (
-            <p className="text-danger">{errors.images.message}</p>
+            <p className="text-red-500 text-xs mt-1 text-left">
+              {errors.images.message}
+            </p>
           )}
         </div>
-        <div className="mb-3">
+        <div className="space-y-4">
           {imagePreviews.map(
             (src: string | undefined, index: Key | null | undefined) => (
               <img
@@ -154,10 +172,17 @@ export const AccommodationForm: React.FC = () => {
             )
           )}
         </div>
-        <button type="submit" className="btn btn-info">
+        <button
+          type="submit"
+          className={`px-4 py-2 rounded-md shadow-sm ${
+            isValid
+              ? "bg-blue-500 text-white hover:bg-sky-500 hover:border-transparent"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
+        >
           Next
         </button>
       </form>
-    </>
+    </div>
   );
 };
