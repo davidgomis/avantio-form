@@ -8,6 +8,10 @@ import {
   emailValidation,
   phoneValidation,
 } from "../validations/ownerFormValidation";
+import { Button } from "./Button";
+import { Label } from "./Label";
+import { ErrorForm } from "./ErrorForm";
+import { Input } from "./Input";
 
 export const OwnerForm = () => {
   const dispatch = useAppDispatch();
@@ -34,55 +38,22 @@ export const OwnerForm = () => {
       >
         <div className="flex flex-col justify-between gap-4">
           <div>
-            <label className="block text-gray-700 text-left">Name</label>
-            <input
-              type="text"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("name", nameValidation)}
-            />
-            {errors.name && (
-              <p className="text-red-500 text-xs mt-1 text-left">
-                {errors.name.message}
-              </p>
-            )}
+            <Label text="Name" />
+            <Input register={register("name", nameValidation)} />
+            {errors.name && <ErrorForm textError={errors.name.message} />}
           </div>
           <div>
-            <label className="block text-gray-700 text-left">Email</label>
-            <input
-              type="text"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("email", emailValidation)}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-xs mt-1 text-left">
-                {errors.email.message}
-              </p>
-            )}
+            <Label text="Email" />
+            <Input register={register("email", emailValidation)} />
+            {errors.email && <ErrorForm textError={errors.email.message} />}
           </div>
           <div>
-            <label className="block text-gray-700 text-left">Phone</label>
-            <input
-              type="text"
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("phone", phoneValidation)}
-            />
-            {errors.phone && (
-              <p className="text-red-500 text-xs mt-1 text-left">
-                {errors.phone.message}
-              </p>
-            )}
+            <Label text="Phone" />
+            <Input register={register("phone", phoneValidation)} />
+            {errors.phone && <ErrorForm textError={errors.phone.message} />}
           </div>
         </div>
-        <button
-          type="submit"
-          className={`px-4 py-2 rounded-md shadow-sm ${
-            isValid
-              ? "bg-blue-500 text-white hover:bg-sky-500 hover:border-transparent"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          Next
-        </button>
+        <Button text="Next" isValid={isValid} />
       </form>
     </div>
   );

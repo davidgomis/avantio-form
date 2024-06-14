@@ -47,8 +47,13 @@ const formSlice = createSlice({
     updateOwnerForm: (state, action: PayloadAction<OwnerFormState>) => {
       state.ownerForm = action.payload;
     },
+    resetForms: (state) => {
+      state.accommodationForm = initialState.accommodationForm;
+      state.ownerForm = initialState.ownerForm;
+    },
   },
 });
 
-export const { updateAccommodationForm, updateOwnerForm } = formSlice.actions;
+export const { updateAccommodationForm, updateOwnerForm, resetForms } =
+  formSlice.actions;
 export default formSlice.reducer;

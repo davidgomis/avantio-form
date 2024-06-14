@@ -11,6 +11,10 @@ import {
   descriptionValidation,
   typeValidation,
 } from "../validations/accommodationFormValidation";
+import { Button } from "./Button";
+import { Label } from "./Label";
+import { ErrorForm } from "./ErrorForm";
+import { Input } from "./Input";
 
 export const AccommodationForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,33 +47,17 @@ export const AccommodationForm: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label className="block text-gray-700 text-left">Name</label>
-          <input
-            type="text"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            {...register("name", nameValidation)}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1 text-left">
-              {errors.name.message}
-            </p>
-          )}
+          <Label text="Name" />
+          <Input register={register("name", nameValidation)} />
+          {errors.name && <ErrorForm textError={errors.name.message} />}
         </div>
         <div>
-          <label className="block text-gray-700 text-left">Address</label>
-          <input
-            type="text"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            {...register("address", addressValidation)}
-          />
-          {errors.address && (
-            <p className="text-red-500 text-xs mt-1 text-left">
-              {errors.address.message}
-            </p>
-          )}
+          <Label text="Address" />
+          <Input register={register("address", addressValidation)} />
+          {errors.address && <ErrorForm textError={errors.address.message} />}
         </div>
         <div>
-          <label className="block text-gray-700 text-left">Description</label>
+          <Label text="Description" />
           <textarea
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             cols={10}
@@ -77,13 +65,11 @@ export const AccommodationForm: React.FC = () => {
             {...register("description", descriptionValidation)}
           ></textarea>
           {errors.description && (
-            <p className="text-red-500 text-xs mt-1 text-left">
-              {errors.description.message}
-            </p>
+            <ErrorForm textError={errors.description.message} />
           )}
         </div>
         <div>
-          <label className="block text-gray-700 text-left">Type</label>
+          <Label text="Type" />
           <select
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             {...register("type", typeValidation)}
@@ -92,19 +78,16 @@ export const AccommodationForm: React.FC = () => {
             <option value="villa">Villa</option>
             <option value="house">House</option>
           </select>
-          {errors.type && (
-            <p className="text-red-500 text-xs mt-1 text-left">
-              {errors.type.message}
-            </p>
-          )}
+          {errors.type && <ErrorForm textError={errors.type.message} />}
         </div>
         <div>
-          <label className="block text-gray-700 text-left">Photos</label>
+          <Label text="Photos" />
           <input
             type="file"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             accept="image/*"
             multiple
+            lang="en"
             {...register("images", {
               validate: {
                 maxFiles: (files) =>
@@ -118,11 +101,7 @@ export const AccommodationForm: React.FC = () => {
               },
             })}
           />
-          {errors.images && (
-            <p className="text-red-500 text-xs mt-1 text-left">
-              {errors.images.message}
-            </p>
-          )}
+          {errors.images && <ErrorForm textError={errors.images.message} />}
         </div>
         <div className="space-y-4">
           {imagePreviews.map(
@@ -140,16 +119,7 @@ export const AccommodationForm: React.FC = () => {
             )
           )}
         </div>
-        <button
-          type="submit"
-          className={`px-4 py-2 rounded-md shadow-sm ${
-            isValid
-              ? "bg-blue-500 text-white hover:bg-sky-500 hover:border-transparent"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          Next
-        </button>
+        <Button text="Next" isValid={isValid} />
       </form>
     </div>
   );
