@@ -1,6 +1,6 @@
 declare namespace JSX {
   interface IntrinsicElements {
-    "result-component": React.DetailedHTMLProps<
+    "custom-react-form": React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLElement>,
       HTMLElement
     > & {

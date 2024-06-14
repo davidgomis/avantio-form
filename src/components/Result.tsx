@@ -1,4 +1,5 @@
 import { useAppSelector } from "../store/store";
+import { getRandomBoolean } from "../utils/getRandomBoolean";
 import "./ResultComponent";
 
 export const Result = () => {
@@ -6,19 +7,35 @@ export const Result = () => {
     (state) => state.form.accommodationForm
   );
   const formOwner = useAppSelector((state) => state.form.ownerForm);
+  const formElement = document.querySelector(
+    "custom-react-form"
+  ) as HTMLElement;
+  const body = document.querySelector("body") as HTMLElement;
+  const randomResult = getRandomBoolean();
 
+  if (formElement) {
+    formElement.style.display = "block";
+    formElement.style.margin = "0 auto";
+    body.style.flexDirection = "column";
+    formElement.setAttribute("accommodation-name", formAccommodation.name);
+    formElement.setAttribute(
+      "accommodation-address",
+      formAccommodation.address
+    );
+    formElement.setAttribute(
+      "accommodation-description",
+      formAccommodation.description
+    );
+    formElement.setAttribute("accommodation-type", formAccommodation.type);
+    formElement.setAttribute("owner-name", formOwner.name);
+    formElement.setAttribute("owner-email", formOwner.email);
+    formElement.setAttribute("owner-phone", formOwner.phone);
+  }
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Custom Element Example</h1>
-      <result-component
-        accommodation-name={formAccommodation.name}
-        accommodation-address={formAccommodation.address}
-        accommodation-description={formAccommodation.description}
-        accommodation-type={formAccommodation.type}
-        owner-name={formOwner.name}
-        owner-email={formOwner.email}
-        owner-phone={formOwner.phone}
-      ></result-component>
+    <div>
+      <h2 className="text-3xl text-left mb-3 mt-10 font-bold">
+        {randomResult ? "FORM SUBMIT!" : "SUBMIT ERROR"}
+      </h2>
     </div>
   );
 };

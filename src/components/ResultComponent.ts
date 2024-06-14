@@ -62,14 +62,14 @@ class ResultComponent extends HTMLElement {
       <div class="container">
         <div class="title">Summary</div>
         <div class="section">
-          <div class="section-title">Accommodation Information</div>
+          <div class="section-title">Accommodation</div>
           <div class="field"><span class="field-label">Name:</span> ${accommodationName}</div>
           <div class="field"><span class="field-label">Address:</span> ${accommodationAddress}</div>
           <div class="field"><span class="field-label">Description:</span> ${accommodationDescription}</div>
           <div class="field"><span class="field-label">Type:</span> ${accommodationType}</div>
         </div>
         <div class="section">
-          <div class="section-title">Owner Information</div>
+          <div class="section-title">Owner</div>
           <div class="field"><span class="field-label">Name:</span> ${ownerName}</div>
           <div class="field"><span class="field-label">Email:</span> ${ownerEmail}</div>
           <div class="field"><span class="field-label">Phone:</span> ${ownerPhone}</div>
@@ -97,4 +97,4 @@ class ResultComponent extends HTMLElement {
   }
 }
 
-customElements.define("result-component", ResultComponent);
+customElements.define("custom-react-form", ResultComponent);

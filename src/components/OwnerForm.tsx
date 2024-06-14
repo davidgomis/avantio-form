@@ -3,6 +3,11 @@ import { useAppDispatch } from "../store/store";
 import { updateOwnerForm } from "../store/formSlice";
 import { useNavigate } from "react-router-dom";
 import { OwnerForm as OwnerFormType } from "../types/types";
+import {
+  nameValidation,
+  emailValidation,
+  phoneValidation,
+} from "../validations/ownerFormValidation";
 
 export const OwnerForm = () => {
   const dispatch = useAppDispatch();
@@ -33,17 +38,7 @@ export const OwnerForm = () => {
             <input
               type="text"
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("name", {
-                required: "Name is required",
-                minLength: {
-                  value: 4,
-                  message: "Name must be between 4 and 64 characters",
-                },
-                maxLength: {
-                  value: 64,
-                  message: "Name must be between 4 and 64 characters",
-                },
-              })}
+              {...register("name", nameValidation)}
             />
             {errors.name && (
               <p className="text-red-500 text-xs mt-1 text-left">
@@ -56,13 +51,7 @@ export const OwnerForm = () => {
             <input
               type="text"
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
-                  message: "Invalid email address",
-                },
-              })}
+              {...register("email", emailValidation)}
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1 text-left">
@@ -75,13 +64,7 @@ export const OwnerForm = () => {
             <input
               type="text"
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-              {...register("phone", {
-                required: "Phone number is required",
-                pattern: {
-                  value: /^[0-9]{9}$/,
-                  message: "Phone number must be 9 digits",
-                },
-              })}
+              {...register("phone", phoneValidation)}
             />
             {errors.phone && (
               <p className="text-red-500 text-xs mt-1 text-left">

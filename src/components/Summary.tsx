@@ -9,6 +9,24 @@ export const Summary = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
+    const formsData = {
+      accommodationName: formAccommodation.name,
+      accommodationAddress: formAccommodation.address,
+      accommodationDescription: formAccommodation.description,
+      accommodationType: formAccommodation.type,
+      accommodationPhotos: formAccommodation.images,
+      ownerName: formOwner.name,
+      ownerEmail: formOwner.email,
+      ownerPhone: formOwner.phone,
+    };
+
+    const formElement = document.querySelector("custom-react-form");
+    const event = new CustomEvent("custom-react-submit", {
+      detail: formsData,
+    });
+    if (formElement) {
+      formElement.dispatchEvent(event);
+    }
     navigate("/result");
   };
 

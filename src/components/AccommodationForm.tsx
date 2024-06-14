@@ -5,6 +5,12 @@ import { updateAccommodationForm } from "../store/formSlice";
 import { useNavigate } from "react-router-dom";
 import { AccommodationForm as AccommodationFormType } from "../types/types";
 import useImagePreviews from "../hooks/useImagePreview";
+import {
+  nameValidation,
+  addressValidation,
+  descriptionValidation,
+  typeValidation,
+} from "../validations/accommodationFormValidation";
 
 export const AccommodationForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,21 +47,7 @@ export const AccommodationForm: React.FC = () => {
           <input
             type="text"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            {...register("name", {
-              required: "Name is required",
-              minLength: {
-                value: 4,
-                message: "Name must be between 4 and 128 characters",
-              },
-              maxLength: {
-                value: 128,
-                message: "Name must be between 4 and 128 characters",
-              },
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: "Name must not contain numbers",
-              },
-            })}
+            {...register("name", nameValidation)}
           />
           {errors.name && (
             <p className="text-red-500 text-xs mt-1 text-left">
@@ -68,17 +60,7 @@ export const AccommodationForm: React.FC = () => {
           <input
             type="text"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            {...register("address", {
-              required: "Address is required",
-              minLength: {
-                value: 4,
-                message: "Address must be between 4 and 128 characters",
-              },
-              maxLength: {
-                value: 128,
-                message: "Address must be between 4 and 128 characters",
-              },
-            })}
+            {...register("address", addressValidation)}
           />
           {errors.address && (
             <p className="text-red-500 text-xs mt-1 text-left">
@@ -92,16 +74,7 @@ export const AccommodationForm: React.FC = () => {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             cols={10}
             rows={10}
-            {...register("description", {
-              minLength: {
-                value: 128,
-                message: "Description must be between 128 and 2048 characters",
-              },
-              maxLength: {
-                value: 2048,
-                message: "Description must be between 128 and 2048 characters",
-              },
-            })}
+            {...register("description", descriptionValidation)}
           ></textarea>
           {errors.description && (
             <p className="text-red-500 text-xs mt-1 text-left">
@@ -113,12 +86,7 @@ export const AccommodationForm: React.FC = () => {
           <label className="block text-gray-700 text-left">Type</label>
           <select
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            {...register("type", {
-              required: "Property type is required",
-              validate: (value) =>
-                ["apartment", "villa", "house"].includes(value) ||
-                "Invalid property type",
-            })}
+            {...register("type", typeValidation)}
           >
             <option value="apartment">Apartment</option>
             <option value="villa">Villa</option>
