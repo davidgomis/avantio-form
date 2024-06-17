@@ -1,20 +1,20 @@
-import { Key } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../store/store";
 import { updateAccommodationForm } from "../store/formSlice";
 import { useNavigate } from "react-router-dom";
 import { AccommodationForm as AccommodationFormType } from "../types/types";
-import useImagePreviews from "../hooks/useImagePreview";
 import {
   nameValidation,
   addressValidation,
   descriptionValidation,
   typeValidation,
+  imageValidation,
 } from "../validations/accommodationFormValidation";
 import { Button } from "./Button";
 import { Label } from "./Label";
 import { ErrorForm } from "./ErrorForm";
 import { Input } from "./Input";
+import { Photos } from "./Photos";
 
 export const AccommodationForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,12 +22,9 @@ export const AccommodationForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<AccommodationFormType>();
-
-  const images = watch("images");
-  const imagePreviews = useImagePreviews(images);
 
   const onSubmit: SubmitHandler<AccommodationFormType> = (
     values: AccommodationFormType
@@ -36,6 +33,10 @@ export const AccommodationForm: React.FC = () => {
       dispatch(updateAccommodationForm(values));
       navigate("/owner");
     }
+  };
+
+  const handleImagesChange = (images: FileList) => {
+    setValue("images", images);
   };
 
   return (
@@ -80,45 +81,12 @@ export const AccommodationForm: React.FC = () => {
           </select>
           {errors.type && <ErrorForm textError={errors.type.message} />}
         </div>
-        <div>
-          <Label text="Photos" />
-          <input
-            type="file"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
-            accept="image/*"
-            multiple
-            lang="en"
-            {...register("images", {
-              validate: {
-                maxFiles: (files) =>
-                  files.length <= 2 || "You can upload up to 2 images",
-                maxSize: (files) => {
-                  const valid = Array.from(files).every(
-                    (file) => file.size <= 500 * 1024
-                  );
-                  return valid || "Each image must be less than 500KB";
-                },
-              },
-            })}
-          />
-          {errors.images && <ErrorForm textError={errors.images.message} />}
-        </div>
-        <div className="space-y-4 flex flex-row gap-2">
-          {imagePreviews.map(
-            (src: string | undefined, index: Key | null | undefined) => (
-              <img
-                key={index}
-                src={src}
-                alt={`Preview ${index}`}
-                style={{
-                  maxWidth: "200px",
-                  maxHeight: "200px",
-                  margin: "10px",
-                }}
-              />
-            )
-          )}
-        </div>
+
+        <Photos
+          onImagesChange={handleImagesChange}
+          register={register("images", imageValidation)}
+        />
+
         <Button text="Next" isValid={isValid} />
       </form>
     </div>

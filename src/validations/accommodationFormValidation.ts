@@ -48,3 +48,14 @@ export const typeValidation: RegisterOptions = {
   validate: (value) =>
     ["apartment", "villa", "house"].includes(value) || "Invalid property type",
 };
+
+export const imageValidation = {
+  validate: {
+    maxFiles: (files: FileList) =>
+      files.length <= 2 || "You can upload up to 2 images",
+    maxSize: (files: FileList) => {
+      const valid = Array.from(files).every((file) => file.size <= 500 * 1024);
+      return valid || "Each image must be less than 500KB";
+    },
+  },
+};
